@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' | DuffleCraftCo' : 'DuffleCraftCo — Premium Leather Export' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">DuffleCraft<span>Co</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">Home</a></li>
+      <li><a href="/products" class="<%= typeof page !== 'undefined' && page === 'products' ? 'active' : '' %>">Products</a></li>
+      <li><a href="#about" class="<%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>">About US</a></li>
+      <li><a href="/contact" class="<%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">Contact</a></li>
+    </ul>
+  </div>
+</nav>

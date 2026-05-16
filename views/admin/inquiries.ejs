@@ -1,0 +1,55 @@
+<% locals.adminTitle = 'Inquiries'; locals.activeNav = 'inquiries'; %>
+<%- include('layout-top') %>
+
+<% if (inquiries.length > 0) { %>
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Product</th>
+        <th>Message</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% inquiries.forEach(inq => { %>
+      <tr class="<%= inq.status === 'new' ? 'row-new' : '' %>">
+        <td><strong><%= inq.name %></strong></td>
+        <td><a href="mailto:<%= inq.email %>"><%= inq.email %></a></td>
+        <td><%= inq.phone || '—' %></td>
+        <td><%= inq.productName || '—' %></td>
+        <td class="msg-cell"><span title="<%= inq.message %>"><%= inq.message.substring(0,50) %>...</span></td>
+        <td>
+          <form action="/admin/inquiries/status/<%= inq._id %>" method="POST" class="inline-form">
+            <select name="status" onchange="this.form.submit()" class="status-select status-<%= inq.status %>">
+              <option value="new" <%= inq.status === 'new' ? 'selected' : '' %>>New</option>
+              <option value="read" <%= inq.status === 'read' ? 'selected' : '' %>>Read</option>
+              <option value="replied" <%= inq.status === 'replied' ? 'selected' : '' %>>Replied</option>
+            </select>
+          </form>
+        </td>
+        <td><%= new Date(inq.createdAt).toLocaleDateString() %></td>
+        <td>
+          <form action="/admin/inquiries/delete/<%= inq._id %>" method="POST" class="inline-form" onsubmit="return confirm('Delete this inquiry?')">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% } else { %>
+<div class="empty-state">
+  <div class="empty-icon">📨</div>
+  <h3>No inquiries yet</h3>
+  <p>Inquiries submitted via the contact form will appear here.</p>
+</div>
+<% } %>
+
+<%- include('layout-bottom') %>

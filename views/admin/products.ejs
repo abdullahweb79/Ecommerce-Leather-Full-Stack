@@ -1,0 +1,50 @@
+<% locals.adminTitle = 'Products'; locals.activeNav = 'products'; %>
+<%- include('layout-top') %>
+
+<div class="admin-toolbar">
+  <a href="/admin/products/add" class="btn btn-primary">+ Add Product</a>
+</div>
+
+<% if (products.length > 0) { %>
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Featured</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(p => { %>
+      <tr>
+        <td>
+          <img src="/uploads/<%= p.image %>" alt="<%= p.name %>" class="table-thumb" onerror="this.src='/img/placeholder.svg'">
+        </td>
+        <td><strong><%= p.name %></strong></td>
+        <td><span class="badge badge-cat"><%= p.category.replace(/-/g,' ') %></span></td>
+        <td><%= p.price || '—' %></td>
+        <td><%= p.featured ? '⭐ Yes' : 'No' %></td>
+        <td class="actions-cell">
+          <a href="/admin/products/edit/<%= p._id %>" class="btn btn-sm btn-outline">Edit</a>
+          <form action="/admin/products/delete/<%= p._id %>" method="POST" class="inline-form" onsubmit="return confirm('Delete this product?')">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% } else { %>
+<div class="empty-state">
+  <div class="empty-icon">👜</div>
+  <h3>No products yet</h3>
+  <a href="/admin/products/add" class="btn btn-primary">Add your first product</a>
+</div>
+<% } %>
+
+<%- include('layout-bottom') %>

@@ -1,0 +1,84 @@
+<% locals.page = 'products'; locals.title = 'Products'; %>
+<%- include('partials/header') %>
+
+<%- include('partials/flash') %>
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="section-tag">Our Collection</span>
+    <h1>Premium Leather Products</h1>
+    <p>Explore our full range of handcrafted leather goods — from executive bags to sport duffles.</p>
+  </div>
+</section>
+
+<section class="products-page">
+  <div class="section-container">
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="filter-tabs">
+        <a href="/products" class="filter-tab <%= currentCategory === 'all' ? 'active' : '' %>">All</a>
+        <% categories.forEach(cat => { %>
+        <a href="/products?category=<%= cat.slug %>" class="filter-tab <%= currentCategory === cat.slug ? 'active' : '' %>">
+          <%= cat.label %>
+        </a>
+        <% }) %>
+      </div>
+      <form class="search-form" action="/products" method="GET">
+        <% if (currentCategory && currentCategory !== 'all') { %>
+          <input type="hidden" name="category" value="<%= currentCategory %>">
+        <% } %>
+        <input type="text" name="search" value="<%= search %>" placeholder="Search products...">
+        <button type="submit">🔍</button>
+      </form>
+    </div>
+
+    <!-- RESULTS INFO -->
+    <div class="results-info">
+      <p>
+        <% if (search) { %>
+          Showing results for "<strong><%= search %></strong>"
+        <% } %>
+        — <strong><%= products.length %></strong> product<%= products.length !== 1 ? 's' : '' %> found
+      </p>
+    </div>
+
+    <% if (currentCategory === 'all' && !search) { %>
+      <!-- GROUPED BY CATEGORY -->
+      <% categories.forEach(cat => { %>
+        <% if (grouped[cat.slug] && grouped[cat.slug].length > 0) { %>
+        <div class="category-section">
+          <div class="category-header">
+            <h2><%= cat.label %></h2>
+            <a href="/products?category=<%= cat.slug %>" class="see-all">See all →</a>
+          </div>
+          <div class="products-grid">
+            <% grouped[cat.slug].forEach(product => { %>
+            <%- include('partials/product-card', { product }) %>
+            <% }) %>
+          </div>
+        </div>
+        <% } %>
+      <% }) %>
+
+    <% } else { %>
+      <!-- FLAT GRID -->
+      <% if (products.length > 0) { %>
+      <div class="products-grid">
+        <% products.forEach(product => { %>
+        <%- include('partials/product-card', { product }) %>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <h3>No products found</h3>
+        <p>Try a different search or <a href="/products">view all products</a>.</p>
+      </div>
+      <% } %>
+    <% } %>
+
+  </div>
+</section>
+
+<%- include('partials/footer') %>

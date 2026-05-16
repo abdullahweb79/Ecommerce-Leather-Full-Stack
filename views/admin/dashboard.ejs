@@ -1,0 +1,65 @@
+<% locals.adminTitle = 'Dashboard'; locals.activeNav = 'dashboard'; %>
+<%- include('layout-top') %>
+
+<div class="stats-cards">
+  <div class="stat-card">
+    <div class="stat-icon">👜</div>
+    <div class="stat-info">
+      <h3><%= productCount %></h3>
+      <p>Total Products</p>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">📨</div>
+    <div class="stat-info">
+      <h3><%= inquiryCount %></h3>
+      <p>Total Inquiries</p>
+    </div>
+  </div>
+  <div class="stat-card highlight">
+    <div class="stat-icon">🔔</div>
+    <div class="stat-info">
+      <h3><%= newInquiries %></h3>
+      <p>New Inquiries</p>
+    </div>
+  </div>
+</div>
+
+<div class="admin-quick-actions">
+  <a href="/admin/products/add" class="btn btn-primary">+ Add New Product</a>
+  <a href="/admin/inquiries" class="btn btn-outline">View All Inquiries</a>
+</div>
+
+<div class="admin-section">
+  <h2>Recent Inquiries</h2>
+  <% if (recentInquiries.length > 0) { %>
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Product</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recentInquiries.forEach(inq => { %>
+        <tr>
+          <td><%= inq.name %></td>
+          <td><%= inq.email %></td>
+          <td><%= inq.productName || '—' %></td>
+          <td><span class="badge badge-<%= inq.status %>"><%= inq.status %></span></td>
+          <td><%= new Date(inq.createdAt).toLocaleDateString() %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } else { %>
+  <p class="empty-msg">No inquiries yet.</p>
+  <% } %>
+</div>
+
+<%- include('layout-bottom') %>

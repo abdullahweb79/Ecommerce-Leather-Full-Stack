@@ -1,0 +1,21 @@
+<div class="product-card" data-reveal>
+  <div class="product-img">
+    <img src="/uploads/<%= product.image %>" alt="<%= product.name %>" onerror="this.src='/img/placeholder.svg'" loading="lazy">
+    <div class="product-overlay">
+      <a href="/contact?product=<%= encodeURIComponent(product.name) %>" class="btn btn-primary btn-sm">Order Now</a>
+    </div>
+  </div>
+  <div class="product-info">
+    <span class="product-cat"><%= product.category.replace(/-/g,' ') %></span>
+    <h3><%= product.name %></h3>
+    <p><%= product.description.length > 90 ? product.description.substring(0,90) + '...' : product.description %></p>
+    <div class="product-footer">
+      <% if (product.price) { %>
+        <span class="product-price"><%= product.price %></span>
+      <% } else { %>
+        <span class="product-price">Contact for Price</span>
+      <% } %>
+      <a href="/contact?product=<%= encodeURIComponent(product.name) %>" class="btn-link">Inquire →</a>
+    </div>
+  </div>
+</div>

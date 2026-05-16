@@ -1,0 +1,60 @@
+<% locals.adminTitle = product ? 'Edit Product' : 'Add Product'; locals.activeNav = 'products'; %>
+<%- include('layout-top') %>
+
+<div class="admin-form-wrap">
+  <form action="<%= product ? '/admin/products/edit/' + product._id : '/admin/products/add' %>" method="POST" enctype="multipart/form-data" class="admin-form">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Product Name *</label>
+        <input type="text" name="name" value="<%= product ? product.name : '' %>" placeholder="e.g. Executive Leather Duffle" required>
+      </div>
+      <div class="form-group">
+        <label>Category *</label>
+        <select name="category" required>
+          <option value="">— Select Category —</option>
+          <% categories.forEach(cat => { %>
+          <option value="<%= cat.slug %>" <%= product && product.category === cat.slug ? 'selected' : '' %>><%= cat.label %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description *</label>
+      <textarea name="description" rows="4" placeholder="Describe the product..." required><%= product ? product.description : '' %></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Price (optional)</label>
+        <input type="text" name="price" value="<%= product ? product.price : '' %>" placeholder="e.g. $120 or leave blank">
+      </div>
+      <div class="form-group form-check-wrap">
+        <label class="check-label">
+          <input type="checkbox" name="featured" <%= product && product.featured ? 'checked' : '' %>>
+          Feature on Homepage
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Product Image</label>
+      <% if (product && product.image !== 'default-product.jpg') { %>
+        <div class="current-img">
+          <img src="/uploads/<%= product.image %>" alt="Current Image">
+          <span>Current image — upload new to replace</span>
+        </div>
+      <% } %>
+      <input type="file" name="image" accept="image/*" class="file-input">
+      <p class="form-hint">Max 5MB. JPG, PNG, WebP accepted.</p>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><%= product ? 'Update Product' : 'Add Product' %> →</button>
+      <a href="/admin/products" class="btn btn-outline">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<%- include('layout-bottom') %>

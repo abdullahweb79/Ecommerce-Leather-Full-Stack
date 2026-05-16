@@ -1,0 +1,230 @@
+<% locals.page = 'home'; locals.title = 'Home'; %>
+<%- include('partials/header') %>
+
+<%- include('partials/flash') %>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">Est. 1999 · Sialkot, Pakistan</span>
+    <h1 class="hero-title">Crafting Premium<br><em>Leather Goods</em></h1>
+    <p class="hero-sub">Handcrafted leather bags, jackets, and accessories exported worldwide. Unmatched quality, timeless design.</p>
+    <div class="hero-actions">
+      <a href="/products" class="btn btn-primary">Explore Products</a>
+      <a href="/contact" class="btn btn-outline">Get a Quote</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    
+    <div class="hero-badge">
+      
+      <span class="badge-num">25+</span>
+      <span class="badge-label">Years of Excellence</span>
+      
+    </div>
+          
+
+  </div>
+  
+  <div class="hero-scroll">
+    <span></span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="stats-container">
+    <div class="stat-item">
+      <h3>25+</h3>
+      <p>Years Experience</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <h3>500+</h3>
+      <p>Global Clients</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <h3>15+</h3>
+      <p>Countries Served</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <h3>10K+</h3>
+      <p>Products Exported</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-container about-grid">
+    <div class="about-text" data-reveal>
+      <span class="section-tag">Who We Are</span>
+      <h2>Pakistan's Trusted Leather<br>Export Partner</h2>
+      <p>DuffleCraftCo is a premium leather manufacturing and export company based in Sialkot, Pakistan — the world's leather capital. We specialize in handcrafted leather bags, jackets, wallets, and accessories serving international clients across Europe, North America, and the Middle East.</p>
+      <p>Our master craftsmen combine traditional techniques with modern design to produce leather goods that stand the test of time. Every stitch, every cut, every product reflects our commitment to excellence.</p>
+      <a href="/contact" class="btn btn-primary">Partner With Us</a>
+    </div>
+    <div class="about-visual" data-reveal>
+      <div class="about-img-wrap">
+        <div class="about-img-placeholder">
+          <div class="craft-icon"><img src="/img/6178HokeYbs1gW7MsZM0.png" alt=""></div>
+         
+        </div>
+        <div class="about-float-card">
+          <span class="float-icon">🌍</span>
+          <div>
+            <strong>15+ Countries</strong>
+            <span>Export Destinations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">What We Make</span>
+      <h2>Browse By Category</h2>
+    </div>
+    <div class="cat-grid">
+      <% categories.forEach(cat => { %>
+      <a href="/products?category=<%= cat.slug %>" class="cat-card" data-reveal>
+        <div class="cat-icon">
+          <% if(cat.slug === 'leather-duffle-bags') { %> 👜
+          <% } else if(cat.slug === 'duffle-bags') { %> 🎒
+          <% } else if(cat.slug === 'laptop-bags') { %> 💼
+          <% } else if(cat.slug === 'accessories') { %> 👛
+          <% } else { %> ⚽ <% } %>
+        </div>
+        <h3><%= cat.label %></h3>
+        <span class="cat-arrow">→</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">Handpicked For You</span>
+      <h2>Featured Products</h2>
+    </div>
+    <% if (featured.length > 0) { %>
+    <div class="products-grid">
+      <% featured.forEach(product => { %>
+      <div class="product-card" data-reveal>
+        <div class="product-img">
+          <img src="/uploads/<%= product.image %>" alt="<%= product.name %>" onerror="this.src='/img/placeholder.svg'">
+          <div class="product-overlay">
+            <a href="/contact?product=<%= encodeURIComponent(product.name) %>" class="btn btn-primary btn-sm">Order Now</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <span class="product-cat"><%= product.category.replace(/-/g, ' ') %></span>
+          <h3><%= product.name %></h3>
+          <p><%= product.description.substring(0, 80) %>...</p>
+          <div class="product-footer">
+            <% if (product.price) { %><span class="product-price"><%= product.price %></span><% } %>
+            <a href="/contact?product=<%= encodeURIComponent(product.name) %>" class="btn-link">Inquire →</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <div class="empty-state">
+      <p>Products coming soon. <a href="/contact">Contact us</a> to inquire about our range.</p>
+    </div>
+    <% } %>
+    <div class="section-cta">
+      <a href="/products" class="btn btn-outline">View All Products →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-us">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">Our Advantage</span>
+      <h2>Why Partner With DuffleCraftCo</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" data-reveal>
+        <div class="feature-icon">🏆</div>
+        <h3>Premium Quality</h3>
+        <p>High-grade leather sourced from certified tanneries. Every product meets international quality standards.</p>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="feature-icon">🔨</div>
+        <h3>Master Craftsmanship</h3>
+        <p>Skilled artisans with decades of experience craft each piece with precision and care.</p>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="feature-icon">🌍</div>
+        <h3>Global Export</h3>
+        <p>Reliable international shipping with full documentation and customs compliance.</p>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="feature-icon">⏱️</div>
+        <h3>On-Time Delivery</h3>
+        <p>We honor deadlines. Our production pipeline ensures your order ships on schedule.</p>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="feature-icon">🎨</div>
+        <h3>Custom Orders</h3>
+        <p>OEM and private label manufacturing available. Your brand, our craftsmanship.</p>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="feature-icon">💬</div>
+        <h3>Dedicated Support</h3>
+        <p>Personal account managers to guide you from sampling to bulk production and delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-content">
+    <h2>Ready to Source Premium Leather Goods?</h2>
+    <p>Get in touch with our export team for pricing, samples, and custom orders.</p>
+    <a href="/contact" class="btn btn-light">Send Your Inquiry →</a>
+  </div>
+</section>
+
+<!-- CONTACT STRIP -->
+<section class="contact-strip" id="contact">
+  <div class="section-container contact-grid">
+    <div class="contact-info" data-reveal>
+      <span class="section-tag">Get In Touch</span>
+      <h2>Let's Work Together</h2>
+      <p>Whether you're placing a bulk order, requesting samples, or exploring a partnership — we're here to help.</p>
+      <div class="contact-details">
+        <div class="contact-item"><span>📧</span><a href="mailto:info@dufflecraftco.com">info@dufflecraftco.com</a></div>
+        <div class="contact-item"><span>📞</span><a href="tel:+923001234567">+92 300 1234567</a></div>
+        <div class="contact-item"><span>📍</span><span>Sialkot, Punjab, Pakistan</span></div>
+      </div>
+    </div>
+    <form class="contact-form" action="/contact" method="POST" data-reveal>
+      <%- include('partials/flash') %>
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your Name *" required>
+        <input type="email" name="email" placeholder="Email Address *" required>
+      </div>
+      <input type="tel" name="phone" placeholder="Phone / WhatsApp">
+      <textarea name="message" rows="4" placeholder="Your message or inquiry..." required></textarea>
+      <button type="submit" class="btn btn-primary btn-full">Send Inquiry →</button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
